@@ -5,7 +5,7 @@
   "repository": "https://github.com/HelloNeptune/helloneptune-theme",
   "displayName": "HelloNeptune - Eyefriendly Dimmed-Neon Black Theme",
   "description": "Dimmed-neon black theme",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "icon": "helloneptune.png",
   "engines": {
     "vscode": "^1.86.0"

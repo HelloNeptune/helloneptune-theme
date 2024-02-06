@@ -2,11 +2,10 @@
 
 ## HelloNeptune - Eyefriendly Dimmed-Neon Black Theme
 
-![Theme Screenshot](helloneptune.png)
+![Theme Screenshot](helloneptune-transparent.png)
 
     🔵🟤🟡  Azure
 
-     
 ## This is a theme designed for night owls. You will probably like it!
 
 </div>
