@@ -1,0 +1,21 @@
+{
+  "name": "helloneptune-theme",
+  "displayName": "HelloNeptune - Eyefriendly Dimmed-Neon Black Theme",
+  "description": "From the many years I was struggling to find best theme. Then I created this dimmed-neon black theme. Hope you like it !",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.86.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "HelloNeptune",
+        "uiTheme": "vs-dark",
+        "path": "./themes/HelloNeptune-color-theme-first.json"
+      }
+    ]
+  }
+}
