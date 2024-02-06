@@ -5,11 +5,22 @@
   "displayName": "HelloNeptune - Eyefriendly Dimmed-Neon Black Theme",
   "description": "Dimmed-neon black theme",
   "version": "0.0.1",
+  "icon": "helloneptune.png",
   "engines": {
     "vscode": "^1.86.0"
   },
   "categories": [
     "Themes"
+  ],
+  "keywords": [
+    "Themes",
+    "Dark Theme",
+    "Neon",
+    "Dimmed",
+    "Solorized",
+    "Pastel",
+    "Eyefriendly",
+    "Modern"
   ],
   "contributes": {
     "themes": [
