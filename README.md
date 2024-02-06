@@ -1,16 +1,31 @@
-# helloneptune-theme README
+<div align="center">
 
-## Working with Markdown
+## HelloNeptune - Eyefriendly Dimmed-Neon Black Theme
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
+![Theme Screenshot](helloneptune.png)
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+    🔵🟤🟡  Azure
 
-## For more information
+     
+## This is a theme designed for night owls. You probably like it!
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+</div>
 
-**Enjoy!**
+I was always looking for a theme that is "colorful" and "dimmed" same time. Have tried bunch of variations from the marketplace but there was no chance to find out one so I've craeted this. **Enjoy!**
+
+* Well adjusted neon colors
+* Dimmed whole scene %30
+* Fully optimized for JS/TS 
+
+<div align="center">
+
+![Theme Screenshot](example-azure.png)
+
+</div>
+
+### Roadmap
+Color variations will be added to the theme pack
+
+* 🔴 Rose 
+* 🟠 Orange 
+* 🟢 Mint 
