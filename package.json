@@ -23,6 +23,7 @@
     "Eyefriendly",
     "Modern"
   ],
+  "main": "./dist/extension.js",
   "contributes": {
     "themes": [
       {
@@ -30,6 +31,50 @@
         "uiTheme": "vs-dark",
         "path": "./themes/HelloNeptune-color-theme-first.json"
       }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "helloneptune-theme-settings",
+          "title": "HelloNeptune Theme",
+          "icon": "./panel-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "helloneptune-theme-settings": [
+        {
+          "type": "webview",
+          "id": "helloneptune-theme.view.settings",
+          "name": "Settings",
+          "icon": "./panel-icon.svg"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "helloneptune-theme.view.main",
+        "contents": "Welcome to my custom view! [learn more](https://google.com/).\n[Get Started](command:myExtension.myCommand)"
+      }
     ]
+  },
+  "scripts": {
+    "compile": "npm run tsc -p ./",
+    "watch": "tsc -watch -p ./ && npm run compile",
+    "vscode:package": "vsce package",
+    "webpack": "rm -rf ./dist/* && webpack --mode development",
+    "package": "rm -rf *.vsix && npm run webpack && vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "@types/react-dom": "^18.2.19",
+    "@types/vscode": "^1.86.0",
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.90.1",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }
