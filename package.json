@@ -62,6 +62,7 @@
     "compile": "npm run tsc -p ./",
     "watch": "tsc -watch -p ./ && npm run compile",
     "vscode:package": "vsce package",
+    "dev": "webpack --watch --mode development",
     "webpack": "rm -rf ./dist/* && webpack --mode development",
     "package": "rm -rf *.vsix && npm run webpack && vsce package"
   },
@@ -74,6 +75,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "primereact": "^10.5.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   }

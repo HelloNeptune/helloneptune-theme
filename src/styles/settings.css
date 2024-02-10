@@ -1,3 +1,5 @@
+@import '../resources/primereact/lara-light-cyan/theme.css';
+
 .settings-panel {
-  color: red;
+  padding: 20px 0;
 }

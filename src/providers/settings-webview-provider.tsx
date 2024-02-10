@@ -2,7 +2,10 @@ import { WebviewViewProvider, WebviewView, Webview, Uri, EventEmitter, window } 
 import * as ReactDOMServer from "react-dom/server";
 import { getNonce } from "../utils";
 import { SettingsPanel } from '../components/settings-panel';
+import { PrimeReactProvider } from 'primereact/api';
+import { Button } from "primereact/button";
 
+console.log('????!===!???')
 
 export class LeftPanelWebview implements WebviewViewProvider {
 
@@ -49,7 +52,7 @@ export class LeftPanelWebview implements WebviewViewProvider {
     const styleUri = webview.asWebviewUri(
       Uri.joinPath(this.extensionPath, "src/styles", "settings.css")
     );
-console.log(styleUri)
+
     return `<html>
               <head>
                 <meta charSet="utf-8"/>
@@ -58,14 +61,34 @@ console.log(styleUri)
                     img-src vscode-resource: https:;
                     font-src ${webview.cspSource};
                     style-src ${webview.cspSource} 'unsafe-inline';
-                    script-src 'nonce-${nonce}';"
+                    script-src vscode-resource: 'nonce-${nonce}';"
                   >
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <link href="${styleUri}" rel="stylesheet">
+                    <script nonce="${nonce}">
+                      function test() {
+                        console.log(test)
+                      }
+
+                        document.addEventListener('DOMContentLoaded', () => {
+                          const button = document.querySelector('.testt');
+                          console.log(button);
+                          button?.addEventListener('click', () => {
+                            console.log('test')
+                          });
+                        });
+                  
+                    </script>
               </head>
               <body>
-                ${ReactDOMServer.renderToString((
-      <SettingsPanel message={"Tutorial for Left Panel Webview in VSCode extension"}></SettingsPanel>
+              <button class="testt">test</button>
+    ${ReactDOMServer.renderToString((
+      <PrimeReactProvider>
+         <Button pt={{
+        
+      }} onClick={() => console.log('testqqqt')}>TestAbijim</Button>
+        <SettingsPanel message={"Tutorial for Left Panel Webview in VSCode extension"}></SettingsPanel>
+      </PrimeReactProvider>
     ))
       }
 					<script nonce="${nonce}" src="${scriptUri}"></script>
