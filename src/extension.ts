@@ -1,28 +1,79 @@
 import * as vscode from "vscode";
-import { PANEL_SETTINGS_VIEW_ID } from "./constants";
-import { LeftPanelWebview } from "./providers/settings-webview-provider";
+import { ViewKey } from "./views";
+import { registerView } from "./register-view";
+import {
+  ViewApi,
+  ViewApiError,
+  ViewApiEvent,
+  ViewApiRequest,
+  ViewApiResponse,
+  ViewEvents,
+} from "./types/view";
 
-export function activate(context: vscode.ExtensionContext) {
-	let helloWorldCommand = vscode.commands.registerCommand(
-		"vscode-webview-extension-with-react.helloWorld",
-		() => {
-			vscode.window.showInformationMessage(
-				"Hello World from vscode-webview-extension-with-react!"
-			);
-		}
-	);
-	context.subscriptions.push(helloWorldCommand);
+export const activate = async (ctx: vscode.ExtensionContext) => {
+  const connectedViews: Partial<Record<ViewKey, vscode.WebviewView>> = {};
 
-	// Register view
-	const leftPanelWebViewProvider = new LeftPanelWebview(context?.extensionUri, {});
+  const triggerEvent = <E extends keyof ViewEvents>(
+    key: E,
+    ...params: Parameters<ViewEvents[E]>
+  ) => {
+    Object.values(connectedViews).forEach((view) => {
+      view.webview.postMessage({
+        type: "event",
+        key,
+        value: params,
+      } as ViewApiEvent<E>);
+    });
+  };
 
-	let view = vscode.window.registerWebviewViewProvider(
-		PANEL_SETTINGS_VIEW_ID,
-		leftPanelWebViewProvider,
-	);
-	context.subscriptions.push(view);
+  const api: ViewApi = {
+    setGlobalLuminosity: () => {
+      console.log("aa");
+    },
+  };
 
+  const isViewApiRequest = <K extends keyof ViewApi>(
+    msg: unknown
+  ): msg is ViewApiRequest<K> =>
+    msg != null &&
+    typeof msg === "object" &&
+    "type" in msg &&
+    msg.type === "request";
+
+  const registerAndConnectView = async <V extends ViewKey>(key: V) => {
+    const view = await registerView(ctx, key);
+    connectedViews[key] = view;
+
+    const onMessage = async (msg: Record<string, unknown>) => {
+      if (!isViewApiRequest(msg)) {
+        return;
+      }
+
+      try {
+        const val = await Promise.resolve(api[msg.key](...msg.params));
+        const res: ViewApiResponse = {
+          type: "response",
+          id: msg.id,
+          value: val,
+        };
+        view.webview.postMessage(res);
+      } catch (e: unknown) {
+        const err: ViewApiError = {
+          type: "error",
+          id: msg.id,
+          value:
+            e instanceof Error ? e.message : "An unexpected error occurred",
+        };
+        view.webview.postMessage(err);
+      }
+    };
+
+    view.webview.onDidReceiveMessage(onMessage);
+  };
+
+  registerAndConnectView("view.settings");
 };
 
-// this method is called when your extension is deactivated
-export function deactivate() {}
+export const deactivate = () => {
+  return;
+};

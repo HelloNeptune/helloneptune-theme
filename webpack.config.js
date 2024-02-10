@@ -1,60 +1,66 @@
-//@ts-check
+/* eslint-env node */
 
-'use strict';
+const path = require("path");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
-const path = require('path');
+module.exports = (env, { mode }) => {
+  const isDev = mode === "development";
 
-/**@type {import('webpack').Configuration}*/
-const config = {
-  target: 'node',
-  entry: './src/extension.ts',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'extension.js',
-    libraryTarget: 'commonjs2',
-    devtoolModuleFilenameTemplate: './[resource-path]'
-  },
-  devtool: 'source-map',
-  externals: {
-    vscode: 'commonjs vscode'
-  },
-  resolve: {
-    extensions: ['.ts', '.js', '.tsx'],
-    alias: {
-      utils: path.resolve(__dirname, './src/utils.ts'),
-      constant: path.resolve(__dirname, './src/constant.ts'),
-      providers: path.resolve(__dirname, './src/providers/'),
-      components: path.resolve(__dirname, './src/components/'),
+  return {
+    target: "node",
+    mode: mode || "none",
+    entry: {
+      extension: "./src/extension.ts",
     },
-  },
-  plugins: [],
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        exclude: /node_modules/,
-        use: [ 'style-loader', 'css-loader']
-      },
-      {
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        use: [
+    output: {
+      path: path.resolve(__dirname, "dist"),
+      filename: "[name].js",
+      chunkFormat: "commonjs",
+      libraryTarget: "commonjs",
+      devtoolModuleFilenameTemplate: "[resource-path]",
+    },
+    externalsType: "node-commonjs",
+    externals: {
+      vs: "vs",
+      vscode: "commonjs vscode",
+    },
+    resolve: {
+      roots: [__dirname],
+      extensions: [".js", ".ts"],
+    },
+    optimization: {
+      minimize: !isDev,
+    },
+    module: {
+      rules: [
+        {
+          test: /\.(ts?)?$/iu,
+          use: {
+            loader: "swc-loader",
+          },
+          exclude: /node_modules/u,
+        },
+      ],
+    },
+    plugins: [
+      new CopyWebpackPlugin({
+        patterns: [
+          { from: "helloneptune.png", to: "helloneptune.png" },
+          { from: "LICENSE.md", to: "LICENSE.md" },
+          { from: "static", to: "static" },
+          { from: "src/resources", to: "resources" },
+          { from: "src/styles", to: "styles" },
+          { from: "themes", to: "themes" },
           {
-            loader: 'ts-loader'
-          }
-        ]
-      },
-      {
-        test: /\.tsx$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'ts-loader'
-          }
-        ]
-      }
-    ]
-  }
+            from: "package.json",
+            to: "package.json",
+          },
+        ].filter(Boolean),
+      }),
+    ].filter(Boolean),
+    devtool: isDev ? "inline-cheap-module-source-map" : false,
+    infrastructureLogging: {
+      level: "log", // enables logging required for problem matchers
+    },
+  };
 };
-
-module.exports = config;
