@@ -20,7 +20,6 @@ const template = (params: {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${params.title}</title>
     <meta http-equiv="Content-Security-Policy" content="${params.csp}" />
-    <link rel="stylesheet" href="${params.publicPath}styles/settings.css" />
   </head>
 
   <body>

@@ -1,9 +1,60 @@
 @import '../resources/primereact/lara-light-cyan/theme.css';
 
 body {
-  background-color: red;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
-.settings-panel {
-  padding: 20px 0;
+.settings-view {
+  min-width: 270px;
+  padding: 20px 20px 100px 20px;
+  background: linear-gradient(35deg, transparent 80%, #00f3ff 130%);
+}
+
+.setting-card {
+  background: rgb(28 28 28 / 41%);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px -8px rgb(0 0 0 / 10%);
+  backdrop-filter: blur(50px);
+}
+
+.setting-card>h3 {
+  margin-top: 0;
+  margin-bottom: 5px;
+  color: white;
+}
+
+.setting-card>p {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #b5b5b5;
+}
+
+.setting-card .current-value {
+  font-size: 20px;
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.setting-card .current-value.luminosity {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.setting-card .current-value.luminosity svg {
+  min-width: 24px;
+  min-height: 24px;
+}
+
+
+.setting-card .current-value.luminosity span {
+  display: inline-block;
+  min-width: 75px;
+  background: #393939;
+  padding: 2px 11px;
+  border-radius: 4px;
+  margin-top: -18px;
 }

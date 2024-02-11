@@ -78,18 +78,23 @@
     "@types/vscode": "^1.83.1",
     "@vscode/vsce": "^2.21.1",
     "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.10.0",
     "prettier": "^3.0.3",
     "prettier-plugin-organize-imports": "^3.2.3",
+    "primereact": "^10.5.0",
     "promise-deferred": "^2.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-refresh": "^0.14.0",
+    "style-loader": "^3.3.4",
     "swc-loader": "^0.2.3",
     "typescript": "^5.2.2",
     "uuid": "^9.0.1",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1",
-    "primereact": "^10.5.0"
+    "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "iconsax-react": "^0.0.8"
   }
 }

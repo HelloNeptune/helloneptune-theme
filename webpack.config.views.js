@@ -31,6 +31,11 @@ module.exports = (env, { mode }) => {
     module: {
       rules: [
         {
+          test: /\.css$/,
+          use: ["style-loader", "css-loader"],
+          exclude: /node_modules/u,
+        },
+        {
           test: /\.(tsx?)?$/iu,
           use: {
             loader: "swc-loader",
