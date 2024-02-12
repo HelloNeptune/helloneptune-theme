@@ -9,6 +9,14 @@ import {
   ViewApiResponse,
   ViewEvents,
 } from "./types/view";
+import { checkThemeData, setBrightnessGroup } from "./utils";
+import { getThemeFields } from "./utils/get-theme-fields";
+import { tokens, ui } from "./theme-fields/cyan";
+
+// @ts-ignore
+import themeRaw from "!!raw-loader!../themes/HelloNeptune-color-theme-first.json";
+
+const theme = checkThemeData(themeRaw);
 
 export const activate = async (ctx: vscode.ExtensionContext) => {
   const connectedViews: Partial<Record<ViewKey, vscode.WebviewView>> = {};
@@ -26,9 +34,37 @@ export const activate = async (ctx: vscode.ExtensionContext) => {
     });
   };
 
+  const apply = (value: any, target: string) => {
+    const settings = vscode.workspace.getConfiguration();
+
+    try {
+      settings.update(target, value, vscode.ConfigurationTarget.Global);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const api: ViewApi = {
-    setGlobalLuminosity: () => {
-      console.log("aa");
+    setUiLuminosity: async (percent) => {
+      if (!theme) return;
+
+      const group = getThemeFields(ui, theme, true);
+      if (!group) return;
+
+      const newColors = setBrightnessGroup(group, percent);
+      apply({ "[HelloNeptune]": newColors }, "workbench.colorCustomizations");
+    },
+    setTokenLuminosity: async (percent) => {
+      if (!theme) return;
+
+      const group = getThemeFields(tokens, theme);
+      if (!group) return;
+
+      const newColors = setBrightnessGroup(group, percent);
+      apply(
+        { "[HelloNeptune]": { textMateRules: newColors } },
+        "editor.tokenColorCustomizations"
+      );
     },
   };
 
@@ -50,6 +86,7 @@ export const activate = async (ctx: vscode.ExtensionContext) => {
       }
 
       try {
+        // @ts-ignore
         const val = await Promise.resolve(api[msg.key](...msg.params));
         const res: ViewApiResponse = {
           type: "response",

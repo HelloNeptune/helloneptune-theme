@@ -24,7 +24,8 @@ export type ViewApiEvent<K extends keyof ViewEvents = keyof ViewEvents> = {
 };
 
 export type ViewApi = {
-  setGlobalLuminosity: (percent: number) => void;
+  setUiLuminosity: (percent: number) => void;
+  setTokenLuminosity: (percent: number) => void;
 };
 
 export type ViewEvents = {

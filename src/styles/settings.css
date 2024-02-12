@@ -19,6 +19,10 @@ body {
   backdrop-filter: blur(50px);
 }
 
+.setting-card+.setting-card {
+  margin-top: 20px;
+}
+
 .setting-card>h3 {
   margin-top: 0;
   margin-bottom: 5px;

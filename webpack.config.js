@@ -34,6 +34,11 @@ module.exports = (env, { mode }) => {
     module: {
       rules: [
         {
+          test: /\.txt$/i,
+          use: "raw-loader",
+          exclude: /node_modules/u,
+        },
+        {
           test: /\.(ts?)?$/iu,
           use: {
             loader: "swc-loader",
